@@ -1,10 +1,9 @@
-from PIL import Image;
 import numpy as np;
 import cv2;
 
 img_path = './frog.jpg'
-image_grayscale = np.array(Image.open(img_path).convert('L'))
-image_RGB = np.array(Image.open(img_path))
+image_grayscale = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+image_RGB = cv2.imread(img_path, cv2.IMREAD_COLOR)
 
 blur_kernel = np.ones((7,7)) / 49 #blurr
 
@@ -53,13 +52,13 @@ def apply_kernel_RGB(image, kernel):
 
     return zeros_image.astype(np.uint8)
 
-blur_kernel_image_grayscale = apply_kernel_grayscale(image_grayscale, blur_kernel)
+""" blur_kernel_image_grayscale = apply_kernel_grayscale(image_grayscale, blur_kernel)
 cv2.imshow('Original grayscale image', image_grayscale)
 cv2.imshow('Grayscale image with blur', blur_kernel_image_grayscale)
 
 blur_kernel_image_RGB = apply_kernel_RGB(image_RGB, blur_kernel)
 cv2.imshow('Original RGB image', image_RGB)
-cv2.imshow('RGB image with blur', blur_kernel_image_RGB)
+cv2.imshow('RGB image with blur', blur_kernel_image_RGB) """
 
 cv2.waitKey()
 cv2.destroyAllWindows()
