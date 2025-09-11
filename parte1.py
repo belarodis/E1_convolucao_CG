@@ -70,14 +70,14 @@ cv2.imshow('Templo com Motion Blur', motion_blur_temple)
 cv2.waitKey()
 cv2.destroyAllWindows()
 
-#LAPLACIAN EXAMPLE------------------------------------------------------------------
-laplacian_kernel = np.array([
+#BORDER DETECTION EXAMPLE------------------------------------------------------------------
+border_detection_kernel = np.array([
     [-1, -1, -1], 
     [-1,  8, -1], 
     [-1, -1, -1]])
 #calculando tempo
 start = time.time()
-laplacian_temple = apply_kernel_RGB(temple_img, laplacian_kernel)
+laplacian_temple = apply_kernel_RGB(temple_img, border_detection_kernel)
 elapsed = time.time() - start
 cv2.putText(laplacian_temple, f"{elapsed:.3f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 #mostra as imagens
