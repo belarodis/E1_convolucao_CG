@@ -1,10 +1,7 @@
 import numpy as np
 import cv2
 
-gbr_frutas_e_cebola = cv2.imread('./imagens/6frutas1vegetal.png')
-gs_frutas_e_cebola = cv2.cvtColor(gbr_frutas_e_cebola, cv2.COLOR_BGR2GRAY)
-
-#5 FRUTAS ---------------------------------------------------------------------
+#5 FRUTAS ----------------------------------------------------------------------
 #ler imagem e converter p/ grayscale
 gbr_frutas = cv2.imread('./imagens/5frutas.png')
 gs_frutas = cv2.cvtColor(gbr_frutas, cv2.COLOR_BGR2GRAY)
@@ -35,6 +32,7 @@ binary_frutas = cv2.morphologyEx(binary_frutas, cv2.MORPH_CLOSE, secondary_kerne
 #parametros
 num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_frutas)
 
+#desenhando bounding box, keypoints e texto de área
 count = 0
 for c in range(1, num_labels):
     x, y, w, h, area = stats[c]
@@ -54,5 +52,20 @@ for c in range(1, num_labels):
 print("Componentes detectados: " + str(count))
 cv2.imshow('Frutas binary', binary_frutas)
 cv2.imshow('Frutas com bounding box e keypoints', gbr_frutas)
+cv2.waitKey()
+cv2.destroyAllWindows()
+
+#6 FRUTAS E UMA CEBOLA ---------------------------------------------------------
+gbr_frutas_e_cebola = cv2.imread('./imagens/6frutas1vegetal.png')
+gs_frutas_e_cebola = cv2.cvtColor(gbr_frutas_e_cebola, cv2.COLOR_BGR2GRAY)
+
+#aplicar threshold binário
+
+#limpando imagem p/ detecção de componentes
+
+#parametros
+
+#desenhando bounding box, keypoints e texto de área
+
 cv2.waitKey()
 cv2.destroyAllWindows()
