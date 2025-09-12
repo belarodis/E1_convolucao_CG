@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import time
 
-temple_img = cv2.imread('./templo.jpg', cv2.IMREAD_COLOR)
+temple_img = cv2.imread('./imagens/templo.jpg', cv2.IMREAD_COLOR)
 temple_img= cv2.resize(temple_img, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA) #img, tam final da imagem, fator de escala x, fator de escala e método de interpolação
 
 #BLUR EXAMPLE------------------------------------------------------------------

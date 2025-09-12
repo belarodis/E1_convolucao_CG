@@ -1,7 +1,7 @@
 import numpy as np;
 import cv2;
 
-img_path = './frog.jpg'
+img_path = './imagens/frog.jpg'
 image_grayscale = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
 image_RGB = cv2.imread(img_path, cv2.IMREAD_COLOR)
 
