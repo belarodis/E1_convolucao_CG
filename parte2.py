@@ -4,50 +4,55 @@ import cv2
 gbr_frutas_e_cebola = cv2.imread('./imagens/6frutas1vegetal.png')
 gs_frutas_e_cebola = cv2.cvtColor(gbr_frutas_e_cebola, cv2.COLOR_BGR2GRAY)
 
+#5 FRUTAS ---------------------------------------------------------------------
 #ler imagem e converter p/ grayscale
 gbr_frutas = cv2.imread('./imagens/5frutas.png')
 gs_frutas = cv2.cvtColor(gbr_frutas, cv2.COLOR_BGR2GRAY)
-kernel = np.array([
-	[2, 2, 1],
-	[2, 2, 1],
-	[1, 1, 0]
-], dtype=np.uint8)
 
 #aplicar threshold binário
-_, binary_frutas = cv2.threshold(gs_frutas, 198, 255, cv2.THRESH_BINARY_INV)
-#_, binary_frutas = cv2.threshold(gs_frutas_e_cebola, 160, 255, cv2.THRESH_BINARY)
+_, binary_frutas = cv2.threshold(gs_frutas, 190, 255, cv2.THRESH_BINARY_INV)
 
 #limpando imagem p/ detecção de componentes
-for i in range(10):
-    binary_frutas = cv2.morphologyEx(binary_frutas, cv2.MORPH_CLOSE, kernel)
+primary_kernel = np.array([
+	[1, 1, 1],
+	[0, 1, 0],
+	[0, 1, 0]
+], dtype=np.uint8)
+binary_frutas = cv2.morphologyEx(binary_frutas, cv2.MORPH_CLOSE, primary_kernel)
+binary_frutas = cv2.dilate(binary_frutas, primary_kernel, iterations=4)
+binary_frutas = cv2.morphologyEx(binary_frutas, cv2.MORPH_CLOSE, primary_kernel)
+binary_frutas = cv2.erode(binary_frutas, primary_kernel, iterations=2)
 
-for i in range(5):
-    binary_frutas = cv2.erode(binary_frutas, kernel, iterations=2)
+secondary_kernel = np.array([
+	[0, 0, 0],
+	[0, 0, 0],
+	[0, 1, 0]
+], dtype=np.uint8)
+binary_frutas = cv2.morphologyEx(binary_frutas, cv2.MORPH_CLOSE, secondary_kernel)
+binary_frutas = cv2.erode(binary_frutas, secondary_kernel, iterations=4)
+binary_frutas = cv2.morphologyEx(binary_frutas, cv2.MORPH_CLOSE, secondary_kernel)
 
+#parametros
 num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_frutas)
 
-#contorno
-contours, _ = cv2.findContours(binary_frutas, cv2.RETR_EXTERNAL,
-cv2.CHAIN_APPROX_SIMPLE)
-for c in contours:
-    x, y, w, h = cv2.boundingRect(c)
-    area = cv2.contourArea(c)
-    if area < 500:
+count = 0
+for c in range(1, num_labels):
+    x, y, w, h, area = stats[c]
+    cx, cy = centroids[c]
+
+    if area < 200 or w > 500:
         continue
 
-    #cv2.drawContours(gbr_frutas, [c], -1, (0,255,0), 2)
+    count += 1
+    cv2.circle(gbr_frutas, (int(cx), int(cy)), 4, (0,0,255), -1)
     cv2.rectangle(gbr_frutas, (x, y), (x+w, y+h), (0,255,0), 2)
 
-    M = cv2.moments(c)
-    if M["m00"] != 0:
-        cx = int(M["m10"]/M["m00"])
-        cy = int(M["m01"]/M["m00"])
-        cv2.circle(gbr_frutas, (cx, cy), 5, (0,0,255), -1)
+    text = f"Area: {area}"
+    text_pos = (x, y - 10 if y - 10 > 10 else y + 20)
+    cv2.putText(gbr_frutas, text, text_pos, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
 
-
-print("Número de componentes:", len(contours))
-
-cv2.imshow('Frutas dev', binary_frutas)
-cv2.imshow('Frutas contorno e keypoints', gbr_frutas)
+print("Componentes detectados: " + str(count))
+cv2.imshow('Frutas binary', binary_frutas)
+cv2.imshow('Frutas com bounding box e keypoints', gbr_frutas)
 cv2.waitKey()
 cv2.destroyAllWindows()
