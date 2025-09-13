@@ -50,7 +50,6 @@ for c in range(1, num_labels):
     text_pos = (x, y - 10 if y - 10 > 10 else y + 20)
     cv2.putText(bgr_frutas, text, text_pos, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
 
-print("Componentes detectados: " + str(count))
 cv2.imshow('Frutas binary', binary_frutas)
 cv2.imshow('Frutas com bounding box e keypoints', bgr_frutas)
 cv2.waitKey()
