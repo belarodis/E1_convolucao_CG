@@ -1,4 +1,4 @@
-from convolucao import apply_kernel_RGB
+from convolucao import apply_kernel_BGR
 import numpy as np
 import cv2
 import time
@@ -13,7 +13,7 @@ blur_kernel = np.array([
     [1, 1, 1]]) / 9
 #calculando tempo
 start = time.time()
-blur_temple = apply_kernel_RGB(temple_img, blur_kernel)
+blur_temple = apply_kernel_BGR(temple_img, blur_kernel)
 elapsed = time.time() - start
 cv2.putText(blur_temple, f"{elapsed:.2f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 #calculando tempo OpenCV
@@ -34,7 +34,7 @@ emboss_kernel = np.array([
     [ 0,  1,  2]])
 #calculando tempo
 start = time.time()
-emboss_temple = apply_kernel_RGB(temple_img, emboss_kernel)
+emboss_temple = apply_kernel_BGR(temple_img, emboss_kernel)
 elapsed = time.time() - start
 cv2.putText(emboss_temple, f"{elapsed:.2f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 #calculando tempo OpenCV
@@ -55,7 +55,7 @@ sharpen_kernel = np.array([
     [ 0, -1,  0]])
 #calculando tempo
 start = time.time()
-sharpen_temple = apply_kernel_RGB(temple_img, sharpen_kernel)
+sharpen_temple = apply_kernel_BGR(temple_img, sharpen_kernel)
 elapsed = time.time() - start
 cv2.putText(sharpen_temple, f"{elapsed:.2f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 #calculando tempo OpenCV
@@ -76,7 +76,7 @@ motion_blur_kernel = np.array([
     [0, 0, 1]]) / 3
 #calculando tempo
 start = time.time()
-motion_blur_temple = apply_kernel_RGB(temple_img, motion_blur_kernel)
+motion_blur_temple = apply_kernel_BGR(temple_img, motion_blur_kernel)
 elapsed = time.time() - start
 cv2.putText(motion_blur_temple, f"{elapsed:.2f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 #calculando tempo OpenCV
@@ -97,7 +97,7 @@ border_detection_kernel = np.array([
     [-1, -1, -1]])
 #calculando tempo
 start = time.time()
-border_detection_temple = apply_kernel_RGB(temple_img, border_detection_kernel)
+border_detection_temple = apply_kernel_BGR(temple_img, border_detection_kernel)
 elapsed = time.time() - start
 cv2.putText(border_detection_temple, f"{elapsed:.2f}s", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 #calculando tempo OpenCV

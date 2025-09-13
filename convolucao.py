@@ -29,7 +29,7 @@ def apply_kernel_grayscale(image, kernel):
 
     return zeros_image.astype(np.uint8)
 
-def apply_kernel_RGB(image, kernel):
+def apply_kernel_BGR(image, kernel):
     h_image, w_image, c_image = image.shape 
     h_kernel, w_kernel = kernel.shape
     middle_h_kernel = h_kernel//2
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     cv2.imshow('Original grayscale image', image_grayscale)
     cv2.imshow('Grayscale image with blur', blur_kernel_image_grayscale)
 
-    blur_kernel_image_RGB = apply_kernel_RGB(image_RGB, blur_kernel)
+    blur_kernel_image_RGB = apply_kernel_BGR(image_RGB, blur_kernel)
     cv2.imshow('Original RGB image', image_RGB)
     cv2.imshow('RGB image with blur', blur_kernel_image_RGB)
 
