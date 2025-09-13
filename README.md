@@ -8,8 +8,10 @@ Para demonstrar nossos aprendizados de detecção de componentes, nos foi dispon
 ### Descrição de Funcionalidades
 No arquivo convolucao.py:
 - 2 funções de convolução, uma tratando apenas imagens em grayscale, e outra BGR.
+
 No arquivo parte1.py:
 - 5 kernels são aplicados a uma imagem através da função de convolução que criamos, e outra do OpenCV. Tempos de processamento são disponibilizados na tela.
+
 No arquivo parte2.py:
 - 2 imagens são lidas para detecção de componentes, cada objeto tem seu bounding box, keypoint e label.
 
